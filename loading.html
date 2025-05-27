@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Henna by FUZZ - Modern Mehendi Art</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #fef7f7 50%, #fff5f8 100%);
+            overflow-x: hidden;
+            cursor: none;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Custom Cursor - Soft Pink Dot */
+        .cursor {
+            position: fixed;
+            width: 16px;
+            height: 16px;
+            background: radial-gradient(circle, #d63384 0%, rgba(214, 51, 132, 0.6) 50%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            mix-blend-mode: multiply;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+            opacity: 0.8;
+        }
+
+        .cursor.hover {
+            transform: scale(1.5);
+            opacity: 1;
+        }
+
+        /* Intro/Loading Screen */
+        #intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffffff 0%, #fff5f8 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .intro-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 500;
+            color: #d63384;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+            letter-spacing: 0.05em;
+        }
+
+        .intro-tagline {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            font-weight: 300;
+            color: rgba(214, 51, 132, 0.7);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .intro-progress {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: rgba(214, 51, 132, 0.2);
+            border-radius: 1px;
+            overflow: hidden;
+        }
+
+        .intro-progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #d63384, #ff6b9d);
+            border-radius: 1px;
+            transition: width 5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Main Content */
+        #main-content {
+            opacity: 0;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .container {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            z-index: 100;
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, #d63384, rgba(214, 51, 132, 0.3));
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+
+        /* Geometric Shapes */
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .shape-1 {
+            top: 15%;
+            left: 10%;
+            width: 60px;
+            height: 60px;
+            border: 1px solid #d63384;
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .shape-2 {
+            top: 25%;
+            right: 15%;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #d63384;
+            transform: rotate(45deg);
+            animation: float 6s ease-in-out infinite reverse;
+        }
+
+        .shape-3 {
+            bottom: 20%;
+            left: 20%;
+            width: 50px;
+            height: 50px;
+            border: 1px solid #d63384;
+            border-radius: 50%;
+            animation: float 10s ease-in-out infinite;
+        }
+
+        .shape-4 {
+            bottom: 30%;
+            right: 10%;
+            width: 35px;
+            height: 35px;
+            border: 1px solid #d63384;
+            transform: rotate(45deg);
+            animation: float 7s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* Main Brand */
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 500;
+            color: #d63384;
+            margin-bottom: 1rem;
+            letter-spacing: 0.02em;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .tagline {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            font-weight: 300;
+            color: rgba(214, 51, 132, 0.8);
+            margin-bottom: 2.5rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .description {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: rgba(100, 100, 100, 0.9);
+            max-width: 500px;
+            line-height: 1.7;
+            margin-bottom: 3rem;
+            font-weight: 300;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .cta-section {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            border: 2px solid #d63384;
+            background: rgba(214, 51, 132, 0.05);
+            color: #d63384;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+            font-size: 0.9rem;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(214, 51, 132, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            background: rgba(214, 51, 132, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(214, 51, 132, 0.15);
+        }
+
+        .cta-primary {
+            background: #d63384;
+            color: white;
+        }
+
+        .cta-primary:hover {
+            background: #c02a74;
+            color: white;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #d63384;
+            font-weight: 500;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: rgba(214, 51, 132, 0.8);
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #d63384;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .cta-section {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+                width: 100%;
+            }
+            
+            .cta-button {
+                width: 100%;
+                max-width: 280px;
+                text-align: center;
+            }
+            
+            .nav {
+                padding: 1.5rem;
+            }
+            
+            .nav-links {
+                gap: 1.5rem;
+            }
+            
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+            
+            .shape-1, .shape-2, .shape-3, .shape-4 {
+                display: none; /* Hide geometric shapes on mobile for performance */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                display: none; /* Hide nav links on very small screens */
+            }
+        }
+
+        /* Performance optimizations */
+        .will-change {
+            will-change: transform, opacity;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+
+    <!-- Intro/Loading Screen -->
+    <div id="intro">
+        <h1 class="intro-logo will-change">Henna by FUZZ</h1>
+        <p class="intro-tagline will-change">Modern Mehendi Art</p>
+        <div class="intro-progress">
+            <div class="intro-progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content">
+        <!-- Navigation -->
+        <nav class="nav will-change">
+            <div class="nav-logo">FUZZ</div>
+            <ul class="nav-links">
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Book</a></li>
+            </ul>
+        </nav>
+
+        <!-- Floating Particles -->
+        <div class="particles" id="particles"></div>
+
+        <!-- Geometric Shapes -->
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+
+        <!-- Main Content Container -->
+        <div class="container">
+            <h1 class="brand-name will-change">Henna by FUZZ</h1>
+            <p class="tagline will-change">Elegant Mehendi Art for Every Soul</p>
+            <p class="description will-change">
+                Creating beautiful, modern henna designs that celebrate your unique story. 
+                From minimalist patterns to intricate bridal art, each design is crafted 
+                with love and attention to detail in Chennai.
+            </p>
+            <div class="cta-section will-change">
+                <a href="#book" class="cta-button cta-primary">Book Session</a>
+                <a href="#gallery" class="cta-button">View Gallery</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Performance optimized animations
+        const isMobile = window.innerWidth <= 768;
+        const particleCount = isMobile ? 15 : 25;
+
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        let mouseX = 0, mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        // Smooth cursor follow with RAF
+        function updateCursor() {
+            cursor.style.left = mouseX - 8 + 'px';
+            cursor.style.top = mouseY - 8 + 'px';
+            requestAnimationFrame(updateCursor);
+        }
+        updateCursor();
+
+        // Cursor hover effects
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // Create Floating Particles (performance optimized)
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle will-change';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particlesContainer.appendChild(particle);
+
+                // GSAP animation with reduced complexity for mobile
+                gsap.to(particle, {
+                    x: (Math.random() - 0.5) * (isMobile ? 100 : 200),
+                    y: (Math.random() - 0.5) * (isMobile ? 100 : 200),
+                    opacity: Math.random() * 0.4 + 0.2,
+                    duration: Math.random() * 8 + 6,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "power2.inOut"
+                });
+            }
+        }
+
+        // Intro Animation Timeline
+        function initIntroAnimation() {
+            const tl = gsap.timeline();
+            
+            tl.to('.intro-logo', {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "power3.out"
+            })
+            .to('.intro-tagline', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            }, "-=0.5")
+            .to('.intro-progress-bar', {
+                width: '100%',
+                duration: 5,
+                ease: "power2.inOut"
+            }, "-=0.3");
+        }
+
+        // Main Content Animation
+        function initMainAnimation() {
+            const tl = gsap.timeline();
+            
+            tl.to('.nav', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            })
+            .to('.brand-name', {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "power3.out"
+            }, "-=0.5")
+            .to('.tagline', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            }, "-=0.6")
+            .to('.description', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            }, "-=0.4")
+            .to('.cta-section', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            }, "-=0.3");
+        }
+
+        // Smooth Intro to Main Transition
+        function transitionToMain() {
+            const intro = document.getElementById('intro');
+            const mainContent = document.getElementById('main-content');
+            
+            gsap.to(intro, {
+                opacity: 0,
+                duration: 1.2,
+                ease: "power2.inOut",
+                onComplete: () => {
+                    intro.style.display = 'none';
+                    gsap.to(mainContent, {
+                        opacity: 1,
+                        duration: 1.2,
+                        ease: "power2.inOut",
+                        onComplete: () => {
+                            initMainAnimation();
+                        }
+                    });
+                }
+            });
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            initIntroAnimation();
+            
+            // Transition after 5 seconds
+            setTimeout(transitionToMain, 5000);
+        });
+
+        // Performance optimization: Reduce animations on low-end devices
+        if (navigator.hardwareConcurrency <= 2 || isMobile) {
+            document.body.classList.add('reduced-motion');
+        }
+
+        // Intersection Observer for scroll animations (future enhancement)
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+        }
+    </script>
+</body>
+</html>
