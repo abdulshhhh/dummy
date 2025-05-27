@@ -1,0 +1,1930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Henna by Fuzz | Luxury Mehndi Artistry</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blush: #fcdede;
+      --ivory: #fffaf0;
+      --sage: #cce3dc;
+      --peach: #ffe5b4;
+      --rose: #f5c2c2;
+      --gold: #d4af37;
+      --light: #fefefe;
+      --dark-gold: #b38f2a;
+      --henna: #6b4226;
+      --gradient-1: linear-gradient(135deg, #ffdee9 0%, #b5fffc 100%);
+      --gradient-2: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+      --gradient-3: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--ivory);
+      color: #333;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      cursor: none;
+    }
+
+    /* Custom Cursor */
+    .cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: difference;
+      transition: transform 0.2s ease;
+    }
+
+    .cursor-follower {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transition: all 0.3s ease;
+      opacity: 0.5;
+    }
+
+    .cursor.expand {
+      transform: scale(2);
+      background: var(--peach);
+    }
+
+    /* Premium Loader with Enhanced Effects */
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(45deg, var(--blush), var(--peach), var(--sage), var(--gold));
+      background-size: 400% 400%;
+      animation: gradientShift 4s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      flex-direction: column;
+      perspective: 1000px;
+      overflow: hidden;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      25% { background-position: 100% 50%; }
+      50% { background-position: 100% 100%; }
+      75% { background-position: 0% 100%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .loader-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform-style: preserve-3d;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Enhanced Loader Particles */
+    .loader-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .loader-particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0;
+      animation: loaderParticleFloat 6s linear infinite;
+      box-shadow: 0 0 10px var(--gold);
+    }
+
+    .loader-particle:nth-child(odd) {
+      background: var(--peach);
+      box-shadow: 0 0 10px var(--peach);
+      animation-duration: 8s;
+    }
+
+    .loader-particle:nth-child(3n) {
+      background: var(--rose);
+      box-shadow: 0 0 10px var(--rose);
+      animation-duration: 7s;
+    }
+
+    @keyframes loaderParticleFloat {
+      0% {
+        transform: translateY(100vh) translateX(0) rotate(0deg) scale(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) translateX(50px) rotate(360deg) scale(0);
+        opacity: 0;
+      }
+    }
+
+    /* Enhanced Ring System */
+    .loader-rings {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 320px;
+      height: 320px;
+    }
+
+    .ring {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 4px solid transparent;
+      border-radius: 50%;
+      animation: enhancedSpin 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.5));
+    }
+
+    .ring:nth-child(1) {
+      border-top: 4px solid var(--gold);
+      border-right: 4px solid rgba(212, 175, 55, 0.3);
+      animation-duration: 3s;
+      box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.2);
+    }
+
+    .ring:nth-child(2) {
+      width: 85%;
+      height: 85%;
+      top: 7.5%;
+      left: 7.5%;
+      border-top: 4px solid var(--peach);
+      border-left: 4px solid rgba(255, 229, 180, 0.3);
+      animation-duration: 2.2s;
+      animation-direction: reverse;
+      box-shadow: inset 0 0 25px rgba(255, 229, 180, 0.2);
+    }
+
+    .ring:nth-child(3) {
+      width: 70%;
+      height: 70%;
+      top: 15%;
+      left: 15%;
+      border-top: 4px solid var(--rose);
+      border-bottom: 4px solid rgba(245, 194, 194, 0.3);
+      animation-duration: 1.8s;
+      box-shadow: inset 0 0 20px rgba(245, 194, 194, 0.2);
+    }
+
+    .ring:nth-child(4) {
+      width: 55%;
+      height: 55%;
+      top: 22.5%;
+      left: 22.5%;
+      border-top: 4px solid var(--sage);
+      border-right: 4px solid rgba(204, 227, 220, 0.3);
+      animation-duration: 1.4s;
+      animation-direction: reverse;
+      box-shadow: inset 0 0 15px rgba(204, 227, 220, 0.2);
+    }
+
+    @keyframes enhancedSpin {
+      0% {
+        transform: rotate(0deg) scale(1);
+        opacity: 1;
+      }
+      25% {
+        transform: rotate(90deg) scale(1.05);
+        opacity: 0.8;
+      }
+      50% {
+        transform: rotate(180deg) scale(1);
+        opacity: 1;
+      }
+      75% {
+        transform: rotate(270deg) scale(0.95);
+        opacity: 0.9;
+      }
+      100% {
+        transform: rotate(360deg) scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* Pulsing Glow Effect */
+    .loader-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, rgba(212, 175, 55, 0.1) 30%, transparent 70%);
+      border-radius: 50%;
+      animation: pulseGlow 2s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+
+    @keyframes pulseGlow {
+      0% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0.5;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.8;
+      }
+    }
+
+    .loader h1 {
+      font-family: 'Dancing Script', cursive;
+      color: var(--gold);
+      margin-top: 1.5rem;
+      font-size: 4rem;
+      text-shadow: 0 0 30px var(--gold);
+      background: linear-gradient(45deg, var(--gold), var(--dark-gold), var(--peach), var(--gold));
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+      animation: enhancedTextGlow 3s ease-in-out infinite, textShimmer 4s ease-in-out infinite;
+      z-index: 3;
+    }
+
+    @keyframes enhancedTextGlow {
+      0% {
+        filter: drop-shadow(0 0 20px var(--gold)) drop-shadow(0 0 40px rgba(212, 175, 55, 0.3));
+        transform: scale(1);
+      }
+      50% {
+        filter: drop-shadow(0 0 40px var(--peach)) drop-shadow(0 0 60px rgba(255, 229, 180, 0.5));
+        transform: scale(1.02);
+      }
+      100% {
+        filter: drop-shadow(0 0 20px var(--gold)) drop-shadow(0 0 40px rgba(212, 175, 55, 0.3));
+        transform: scale(1);
+      }
+    }
+
+    @keyframes textShimmer {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .loader h1::after {
+      content: 'Artistry in Every Stroke';
+      position: absolute;
+      bottom: -2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--henna);
+      font-weight: 500;
+      width: 100%;
+      text-align: center;
+      animation: enhancedFadeInOut 4s ease-in-out infinite;
+      text-shadow: 0 0 10px rgba(107, 66, 38, 0.3);
+    }
+
+    @keyframes enhancedFadeInOut {
+      0%, 100% {
+        opacity: 0.6;
+        transform: translateX(-50%) translateY(0);
+      }
+      50% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-5px);
+      }
+    }
+
+    /* Enhanced Progress Bar */
+    .progress-bar {
+      width: 380px;
+      height: 8px;
+      background: rgba(255,255,255,0.2);
+      margin-top: 3.5rem;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .progress {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--peach), var(--gold), var(--rose), var(--gold), var(--peach));
+      background-size: 300% 100%;
+      animation: enhancedShimmer 2.5s infinite;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      animation: progressGlow 2s ease-in-out infinite;
+    }
+
+    .progress::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: -4px;
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      transform: translateY(-50%);
+      box-shadow: 0 0 15px var(--gold), 0 0 30px rgba(212, 175, 55, 0.5);
+      animation: progressDot 1.5s ease-in-out infinite;
+    }
+
+    @keyframes enhancedShimmer {
+      0% { background-position: -300% 0; }
+      100% { background-position: 300% 0; }
+    }
+
+    @keyframes progressGlow {
+      0%, 100% { transform: translateX(-100%); }
+      50% { transform: translateX(100%); }
+    }
+
+    @keyframes progressDot {
+      0%, 100% {
+        transform: translateY(-50%) scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(-50%) scale(1.3);
+        opacity: 0.8;
+      }
+    }
+
+    /* Progress Percentage Display */
+    .progress-percentage {
+      position: absolute;
+      top: -35px;
+      right: 0;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--gold);
+      text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    /* Progress Particles */
+    .progress-particles {
+      position: absolute;
+      top: -10px;
+      left: 0;
+      width: 100%;
+      height: 28px;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .progress-particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0;
+      animation: progressParticleFloat 2s linear infinite;
+    }
+
+    @keyframes progressParticleFloat {
+      0% {
+        transform: translateY(20px) translateX(0) scale(0);
+        opacity: 0;
+      }
+      20% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      80% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-20px) translateX(10px) scale(0);
+        opacity: 0;
+      }
+    }
+
+    /* Enhanced Navbar with Glassmorphism */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 1.2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      z-index: 1000;
+      transform: translateY(-100%);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(30px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    }
+
+    .navbar .logo {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.5rem;
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: 1px;
+      position: relative;
+      text-shadow: 0 0 20px rgba(212,175,55,0.3);
+    }
+
+    .logo-highlight {
+      position: absolute;
+      bottom: 5px;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: var(--rose);
+      z-index: -1;
+      opacity: 0.6;
+      transform: scaleX(0.9);
+      animation: logoGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes logoGlow {
+      0%, 100% { opacity: 0.6; transform: scaleX(0.9); }
+      50% { opacity: 0.8; transform: scaleX(1); }
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .navbar a {
+      color: #555;
+      font-weight: 500;
+      text-decoration: none;
+      position: relative;
+      font-size: 1.1rem;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+    }
+
+    .navbar a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, var(--peach), var(--gold));
+      border-radius: 25px;
+      z-index: -1;
+      transform: scale(0);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .navbar a:hover {
+      color: white;
+      transform: translateY(-3px);
+      text-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .navbar a:hover::before {
+      transform: scale(1);
+    }
+
+    /* Hero Section with Advanced Effects */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 7%;
+      background: var(--ivory);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 80%, rgba(212,175,55,0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(204,227,220,0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 40%, rgba(245,194,194,0.05) 0%, transparent 50%);
+      z-index: 0;
+      animation: backgroundMove 20s ease-in-out infinite;
+    }
+
+    @keyframes backgroundMove {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.1) rotate(2deg); }
+    }
+
+    .hero-text {
+      max-width: 650px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      color: var(--henna);
+      line-height: 1.15;
+      margin-bottom: 2rem;
+      text-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .hero-text h1::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent 30%, rgba(212,175,55,0.1) 50%, transparent 70%);
+      transform: translateX(-100%);
+      animation: textShine 3s ease-in-out infinite;
+    }
+
+    @keyframes textShine {
+      0% { transform: translateX(-100%); }
+      50% { transform: translateX(100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .hero-text p {
+      font-size: 1.4rem;
+      margin-top: 1rem;
+      color: #555;
+      line-height: 1.8;
+      position: relative;
+      padding-bottom: 2rem;
+    }
+
+    .hero-text p::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--peach), var(--rose));
+      border-radius: 4px;
+      animation: lineGrow 2s ease-out 1s forwards;
+    }
+
+    @keyframes lineGrow {
+      to { width: 100px; }
+    }
+
+    .btn-container {
+      display: flex;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .btn {
+      padding: 1.5rem 3rem;
+      border: none;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+      font-size: 1.1rem;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      transform: translateY(50px);
+      opacity: 0;
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+      transform: translate(-50%, -50%);
+      transition: all 0.6s ease;
+      border-radius: 50%;
+    }
+
+    .btn:hover::after {
+      width: 300px;
+      height: 300px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(45deg, var(--gold), var(--dark-gold));
+      color: white;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--henna);
+      border: 2px solid var(--gold);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, var(--peach), var(--gold));
+      z-index: -1;
+      transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transform: scaleX(0);
+      transform-origin: right;
+    }
+
+    .btn:hover::before {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .btn:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    }
+
+    .btn-secondary:hover {
+      color: white;
+      border-color: transparent;
+    }
+
+    /* Magic Button Effect */
+    .magic-btn {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .magic-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.5s;
+    }
+
+    .magic-btn:hover::before {
+      left: 100%;
+    }
+
+    .hero-img-container {
+      position: relative;
+      z-index: 1;
+      perspective: 1500px;
+    }
+
+    .hero-img {
+      width: 550px;
+      border-radius: 30px;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.25);
+      transform: rotateY(-15deg) rotateX(5deg);
+      transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+      border: 20px solid white;
+      filter: saturate(1.2) contrast(1.1) brightness(1.05);
+      opacity: 0;
+      transform-origin: center;
+      position: relative;
+    }
+
+    .hero-img::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: -20px;
+      right: -20px;
+      bottom: -20px;
+      background: linear-gradient(45deg, var(--gold), var(--peach), var(--rose));
+      border-radius: 35px;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .hero-img-container:hover .hero-img::before {
+      opacity: 0.3;
+    }
+
+    .hero-img-container:hover .hero-img {
+      transform: rotateY(0deg) rotateX(0deg) scale(1.02);
+      box-shadow: 0 50px 100px rgba(0,0,0,0.3);
+    }
+
+    .img-frame {
+      position: absolute;
+      width: calc(100% + 60px);
+      height: calc(100% + 60px);
+      top: -30px;
+      left: -30px;
+      border: 3px dashed var(--gold);
+      border-radius: 40px;
+      opacity: 0.7;
+      pointer-events: none;
+      z-index: -1;
+      transform: rotate(2deg);
+      animation: frameRotate 20s linear infinite;
+    }
+
+    @keyframes frameRotate {
+      0% { transform: rotate(2deg); }
+      50% { transform: rotate(-2deg); }
+      100% { transform: rotate(2deg); }
+    }
+
+    /* Advanced Background Elements */
+    .floating-henna {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      opacity: 0.2;
+      animation: float 20s infinite ease-in-out;
+      filter: drop-shadow(5px 10px 15px rgba(0,0,0,0.1));
+      z-index: 0;
+      background: radial-gradient(circle, var(--gold) 2px, transparent 2px);
+      background-size: 20px 20px;
+      border-radius: 50%;
+    }
+
+    .floating-henna::before {
+      content: '✿';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3rem;
+      color: var(--gold);
+      animation: spin 15s linear infinite;
+    }
+
+    .floating-henna:nth-child(odd) {
+      animation-direction: reverse;
+      animation-duration: 25s;
+    }
+
+    .floating-henna:nth-child(even)::before {
+      content: '❀';
+      color: var(--peach);
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      25% { transform: translate(50px, -80px) rotate(90deg) scale(1.1); }
+      50% { transform: translate(100px, 0) rotate(180deg) scale(1); }
+      75% { transform: translate(50px, 80px) rotate(270deg) scale(0.9); }
+      100% { transform: translate(0, 0) rotate(360deg) scale(1); }
+    }
+
+    /* Magical Particle System */
+    .magic-particles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0;
+      animation: particleFloat 8s linear infinite;
+    }
+
+    .particle:nth-child(odd) {
+      background: var(--peach);
+      animation-duration: 12s;
+    }
+
+    .particle:nth-child(3n) {
+      background: var(--rose);
+      animation-duration: 10s;
+    }
+
+    @keyframes particleFloat {
+      0% {
+        transform: translateY(100vh) translateX(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) translateX(100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .gold-dust {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .gold-particle {
+      position: absolute;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0;
+      animation: dustFloat 15s linear infinite;
+      filter: blur(1px);
+      box-shadow: 0 0 10px var(--gold);
+    }
+
+    @keyframes dustFloat {
+      0% {
+        transform: translateY(100vh) translateX(0) rotate(0deg) scale(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.8;
+        transform: scale(1);
+      }
+      90% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-100px) translateX(50px) rotate(180deg) scale(0);
+        opacity: 0;
+      }
+    }
+
+    /* Morphing Background Shapes */
+    .morphing-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.1;
+    }
+
+    .morph-shape {
+      position: absolute;
+      background: linear-gradient(45deg, var(--gold), var(--peach));
+      border-radius: 50%;
+      animation: morphing 20s ease-in-out infinite;
+    }
+
+    .morph-shape:nth-child(1) {
+      width: 300px;
+      height: 300px;
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .morph-shape:nth-child(2) {
+      width: 200px;
+      height: 200px;
+      top: 60%;
+      right: 10%;
+      animation-delay: 5s;
+      background: linear-gradient(45deg, var(--rose), var(--sage));
+    }
+
+    .morph-shape:nth-child(3) {
+      width: 250px;
+      height: 250px;
+      bottom: 10%;
+      left: 30%;
+      animation-delay: 10s;
+      background: linear-gradient(45deg, var(--peach), var(--blush));
+    }
+
+    @keyframes morphing {
+      0%, 100% {
+        border-radius: 50%;
+        transform: scale(1) rotate(0deg);
+      }
+      25% {
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        transform: scale(1.2) rotate(90deg);
+      }
+      50% {
+        border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+        transform: scale(0.8) rotate(180deg);
+      }
+      75% {
+        border-radius: 40% 60% 60% 40% / 60% 40% 60% 40%;
+        transform: scale(1.1) rotate(270deg);
+      }
+    }
+
+    /* Text Animation */
+    .animated-text {
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .word {
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .word:hover {
+      color: var(--gold);
+      text-shadow: 0 0 20px rgba(212,175,55,0.5);
+    }
+
+    /* Enhanced Scroll Indicator */
+    .scroll-down {
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      color: var(--gold);
+      font-size: 1.2rem;
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 0;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+      }
+      40% {
+        transform: translateX(-50%) translateY(-10px);
+      }
+      60% {
+        transform: translateX(-50%) translateY(-5px);
+      }
+    }
+
+    .scroll-text {
+      margin-bottom: 1rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .scroll-arrow {
+      width: 35px;
+      height: 60px;
+      border: 2px solid var(--gold);
+      border-radius: 20px;
+      position: relative;
+      background: rgba(212,175,55,0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .scroll-arrow::after {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 50%;
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      animation: scrollArrow 2s infinite;
+      box-shadow: 0 0 10px var(--gold);
+    }
+
+    @keyframes scrollArrow {
+      0% {
+        transform: translate(-50%, 0);
+        opacity: 0;
+      }
+      50% {
+        transform: translate(-50%, 15px);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50%, 30px);
+        opacity: 0;
+      }
+    }
+
+    /* Hover Effects */
+    .hover-effect {
+      transition: all 0.3s ease;
+    }
+
+    .hover-effect:hover {
+      transform: translateY(-5px);
+      filter: brightness(1.1);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .hero {
+        padding: 0 5%;
+      }
+
+      .hero-text h1 {
+        font-size: 4rem;
+      }
+
+      .hero-img {
+        width: 450px;
+      }
+
+      .loader-rings {
+        width: 280px;
+        height: 280px;
+      }
+
+      .progress-bar {
+        width: 320px;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .hero {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        padding-top: 140px;
+        padding-bottom: 100px;
+      }
+
+      .hero-text {
+        margin-bottom: 4rem;
+        max-width: 800px;
+      }
+
+      .hero-text p::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .btn-container {
+        justify-content: center;
+      }
+
+      .hero-img {
+        width: 400px;
+      }
+
+      .floating-henna {
+        width: 100px;
+        height: 100px;
+      }
+
+      .loader h1 {
+        font-size: 3.5rem;
+      }
+
+      .loader-rings {
+        width: 250px;
+        height: 250px;
+      }
+
+      .progress-bar {
+        width: 300px;
+      }
+
+      .loader-glow {
+        width: 350px;
+        height: 350px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem 2rem;
+      }
+
+      .navbar .logo {
+        font-size: 2rem;
+      }
+
+      .hero-text h1 {
+        font-size: 3rem;
+      }
+
+      .hero-text p {
+        font-size: 1.2rem;
+      }
+
+      .btn {
+        padding: 1.2rem 2.5rem;
+      }
+
+      .hero-img {
+        width: 350px;
+        border-width: 15px;
+      }
+
+      .loader h1 {
+        font-size: 3rem;
+        margin-top: 1rem;
+      }
+
+      .loader h1::after {
+        font-size: 1rem;
+        bottom: -2rem;
+      }
+
+      .loader-rings {
+        width: 220px;
+        height: 220px;
+      }
+
+      .progress-bar {
+        width: 280px;
+        height: 6px;
+      }
+
+      .loader-glow {
+        width: 300px;
+        height: 300px;
+      }
+
+      .progress-percentage {
+        font-size: 1rem;
+        top: -30px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        padding: 0.8rem 1.5rem;
+      }
+
+      .navbar a {
+        margin: 0 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .hero-text h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-text p {
+        font-size: 1rem;
+      }
+
+      .btn-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .hero-img {
+        width: 300px;
+      }
+
+      .cursor, .cursor-follower {
+        display: none;
+      }
+
+      .loader h1 {
+        font-size: 2.5rem;
+        margin-top: 0.5rem;
+      }
+
+      .loader h1::after {
+        font-size: 0.9rem;
+        bottom: -1.8rem;
+      }
+
+      .loader-rings {
+        width: 180px;
+        height: 180px;
+      }
+
+      .progress-bar {
+        width: 250px;
+        height: 5px;
+        margin-top: 2.5rem;
+      }
+
+      .loader-glow {
+        width: 250px;
+        height: 250px;
+      }
+
+      .progress-percentage {
+        font-size: 0.9rem;
+        top: -28px;
+      }
+
+      /* Reduce particle count on mobile for performance */
+      .loader-particle:nth-child(n+21),
+      .progress-particle:nth-child(n+8) {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Custom Cursor -->
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+
+  <!-- Premium Loader with Enhanced Effects -->
+  <div class="loader" id="loader">
+    <!-- Enhanced Loader Particles -->
+    <div class="loader-particles" id="loader-particles"></div>
+
+    <!-- Pulsing Glow Effect -->
+    <div class="loader-glow"></div>
+
+    <div class="loader-rings">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+    </div>
+    <div class="loader-content">
+      <lottie-player
+        src="https://assets10.lottiefiles.com/packages/lf20_tsj1h1zk.json"
+        background="transparent"
+        speed="1"
+        style="width: 280px; height: 280px;"
+        loop
+        autoplay>
+      </lottie-player>
+      <h1>Henna by Fuzz</h1>
+      <div class="progress-bar">
+        <div class="progress-particles" id="progress-particles"></div>
+        <div class="progress" id="progress"></div>
+        <div class="progress-percentage" id="progress-percentage">0%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Morphing Background -->
+  <div class="morphing-bg">
+    <div class="morph-shape"></div>
+    <div class="morph-shape"></div>
+    <div class="morph-shape"></div>
+  </div>
+
+  <!-- Enhanced Navbar with Glassmorphism -->
+  <nav class="navbar">
+    <div class="logo hover-effect">
+      Henna by Fuzz
+      <div class="logo-highlight"></div>
+    </div>
+    <div class="nav-links">
+      <a href="#home" class="hover-effect">Home</a>
+      <a href="#about" class="hover-effect">About</a>
+      <a href="#services" class="hover-effect">Services</a>
+      <a href="#portfolio" class="hover-effect">Portfolio</a>
+      <a href="#contact" class="hover-effect">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <!-- Magic Particles -->
+    <div class="magic-particles" id="magic-particles"></div>
+
+    <!-- Background Elements -->
+    <div class="gold-dust" id="gold-dust"></div>
+
+    <div class="floating-henna" style="top: 15%; left: 10%; animation-delay: 0s;"></div>
+    <div class="floating-henna" style="top: 65%; left: 85%; animation-delay: 2s;"></div>
+    <div class="floating-henna" style="top: 35%; left: 55%; animation-delay: 4s;"></div>
+    <div class="floating-henna" style="top: 75%; left: 15%; animation-delay: 1s;"></div>
+    <div class="floating-henna" style="top: 25%; left: 75%; animation-delay: 3s;"></div>
+    <div class="floating-henna" style="top: 85%; left: 60%; animation-delay: 5s;"></div>
+    <div class="floating-henna" style="top: 45%; left: 20%; animation-delay: 6s;"></div>
+    <div class="floating-henna" style="top: 55%; left: 90%; animation-delay: 7s;"></div>
+
+    <!-- Hero Content -->
+    <div class="hero-text">
+      <h1>
+        <span class="word animated-text">Henna</span>
+        <span class="word animated-text">By</span>
+        <span class="word animated-text">Fuzz</span>
+      </h1>
+      <p>Luxury Mehndi for Moments That Matter.</p>
+      <div class="btn-container">
+        <button class="btn btn-primary magic-btn hover-effect">Book a Session</button>
+        <button class="btn btn-secondary magic-btn hover-effect">View Gallery</button>
+      </div>
+    </div>
+
+    <!-- Hero Image -->
+    <div class="hero-img-container">
+      <img src="c:\Users\Admin\Downloads\mehndi.jpg" alt="Luxury Mehndi Design" class="hero-img hover-effect" />
+      <div class="img-frame"></div>
+    </div>
+
+    <!-- Enhanced Scroll Indicator -->
+    <div class="scroll-down">
+      <span class="scroll-text">Explore More</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <script>
+    // Custom Cursor Animation
+    const cursor = document.querySelector('.cursor');
+    const cursorFollower = document.querySelector('.cursor-follower');
+    let mouseX = 0, mouseY = 0;
+    let followerX = 0, followerY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursor.style.left = mouseX + 'px';
+      cursor.style.top = mouseY + 'px';
+    });
+
+    // Smooth cursor follower
+    function updateFollower() {
+      followerX += (mouseX - followerX) * 0.1;
+      followerY += (mouseY - followerY) * 0.1;
+      cursorFollower.style.left = followerX + 'px';
+      cursorFollower.style.top = followerY + 'px';
+      requestAnimationFrame(updateFollower);
+    }
+    updateFollower();
+
+    // Cursor hover effects
+    document.querySelectorAll('a, button, .hover-effect').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.classList.add('expand');
+        cursorFollower.style.transform = 'scale(1.5)';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.classList.remove('expand');
+        cursorFollower.style.transform = 'scale(1)';
+      });
+    });
+
+    // Enhanced Loading Animation with Performance Optimizations
+    window.addEventListener('load', function() {
+      const loader = document.getElementById('loader');
+      const progress = document.getElementById('progress');
+      const progressPercentage = document.getElementById('progress-percentage');
+
+      // Create enhanced particle systems
+      createLoaderParticles();
+      createProgressParticles();
+
+      // Optimized progress animation with RAF
+      let width = 0;
+      let currentPercentage = 0;
+      const loadingSteps = [12, 28, 45, 67, 82, 95, 100];
+      let stepIndex = 0;
+      let animationId;
+
+      const updateProgress = () => {
+        if (stepIndex < loadingSteps.length) {
+          const targetWidth = loadingSteps[stepIndex];
+          const targetPercentage = Math.round(targetWidth);
+
+          const animateStep = () => {
+            const widthIncrement = (targetWidth - width) * 0.08;
+            const percentageIncrement = (targetPercentage - currentPercentage) * 0.08;
+
+            width += widthIncrement;
+            currentPercentage += percentageIncrement;
+
+            progress.style.width = `${width}%`;
+            progressPercentage.textContent = `${Math.round(currentPercentage)}%`;
+
+            if (Math.abs(width - targetWidth) > 0.5) {
+              animationId = requestAnimationFrame(animateStep);
+            } else {
+              width = targetWidth;
+              currentPercentage = targetPercentage;
+              progress.style.width = `${width}%`;
+              progressPercentage.textContent = `${currentPercentage}%`;
+              stepIndex++;
+
+              // Add slight delay between steps for realism
+              setTimeout(updateProgress, stepIndex === loadingSteps.length ? 800 :
+                        Math.random() * 400 + 200);
+            }
+          };
+          animateStep();
+        } else {
+          // Enhanced exit animation sequence
+          setTimeout(() => {
+            // First, animate rings with stagger
+            gsap.to(".ring", {
+              scale: 0,
+              rotation: 720,
+              duration: 1.2,
+              stagger: 0.1,
+              ease: "back.in(2)"
+            });
+
+            // Animate glow effect
+            gsap.to(".loader-glow", {
+              scale: 3,
+              opacity: 0,
+              duration: 1.5,
+              delay: 0.2,
+              ease: "power2.out"
+            });
+
+            // Animate particles
+            gsap.to(".loader-particle", {
+              scale: 0,
+              opacity: 0,
+              duration: 0.8,
+              stagger: 0.02,
+              delay: 0.3,
+              ease: "power2.in"
+            });
+
+            // Animate content with sophisticated effect
+            gsap.to(".loader-content", {
+              y: -150,
+              opacity: 0,
+              scale: 0.8,
+              rotationX: 90,
+              duration: 1.5,
+              delay: 0.5,
+              ease: "power3.in"
+            });
+
+            // Final loader disappear with luxury effect
+            gsap.to(loader, {
+              clipPath: 'circle(0% at 50% 50%)',
+              duration: 2,
+              delay: 1.2,
+              ease: "power4.inOut",
+              onComplete: () => {
+                loader.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                cancelAnimationFrame(animationId);
+                initMainAnimations();
+              }
+            });
+          }, 500);
+        }
+      };
+
+      updateProgress();
+    });
+
+    // Enhanced Loader Particle System
+    function createLoaderParticles() {
+      const container = document.getElementById('loader-particles');
+      const particleCount = 40;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('loader-particle');
+
+        const size = Math.random() * 6 + 2;
+        const posX = Math.random() * 100;
+        const delay = Math.random() * 6;
+        const duration = Math.random() * 4 + 6;
+
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}%`;
+        particle.style.animationDelay = `${delay}s`;
+        particle.style.animationDuration = `${duration}s`;
+
+        container.appendChild(particle);
+      }
+    }
+
+    // Progress Bar Particle System
+    function createProgressParticles() {
+      const container = document.getElementById('progress-particles');
+      const particleCount = 15;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('progress-particle');
+
+        const size = Math.random() * 4 + 2;
+        const posX = Math.random() * 100;
+        const delay = Math.random() * 2;
+
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}%`;
+        particle.style.animationDelay = `${delay}s`;
+
+        container.appendChild(particle);
+      }
+    }
+
+    // Create Enhanced Particle Systems
+    function createMagicParticles() {
+      const container = document.getElementById('magic-particles');
+      const particleCount = 30;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+
+        const size = Math.random() * 6 + 2;
+        const posX = Math.random() * 100;
+        const delay = Math.random() * 8;
+        const duration = Math.random() * 10 + 8;
+
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}%`;
+        particle.style.animationDelay = `${delay}s`;
+        particle.style.animationDuration = `${duration}s`;
+
+        container.appendChild(particle);
+      }
+    }
+
+    function createGoldDust() {
+      const container = document.getElementById('gold-dust');
+      const particleCount = 60;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('gold-particle');
+
+        const size = Math.random() * 8 + 2;
+        const posX = Math.random() * 100;
+        const delay = Math.random() * 20;
+        const duration = Math.random() * 20 + 15;
+        const blur = Math.random() * 3;
+
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}%`;
+        particle.style.animationDelay = `${delay}s`;
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.filter = `blur(${blur}px)`;
+
+        container.appendChild(particle);
+      }
+    }
+
+    // Initialize Main Animations
+    function initMainAnimations() {
+      // Create particle systems
+      createMagicParticles();
+      createGoldDust();
+
+      // Animate navbar in with bounce effect
+      gsap.to(".navbar", {
+        y: 0,
+        opacity: 1,
+        duration: 1.5,
+        delay: 0.3,
+        ease: "elastic.out(1, 0.6)"
+      });
+
+      // Enhanced text animations with magnetic effect
+      gsap.utils.toArray('.word').forEach((el, i) => {
+        gsap.from(el, {
+          y: 150,
+          opacity: 0,
+          rotation: 15,
+          delay: i * 0.3,
+          duration: 2,
+          ease: "elastic.out(1, 0.5)",
+          onComplete: () => {
+            // Add magnetic hover effect
+            el.addEventListener('mouseenter', () => {
+              gsap.to(el, {
+                y: -10,
+                scale: 1.1,
+                rotation: Math.random() * 10 - 5,
+                duration: 0.6,
+                ease: "elastic.out(1, 0.5)"
+              });
+            });
+
+            el.addEventListener('mouseleave', () => {
+              gsap.to(el, {
+                y: 0,
+                scale: 1,
+                rotation: 0,
+                duration: 0.6,
+                ease: "elastic.out(1, 0.5)"
+              });
+            });
+          }
+        });
+      });
+
+      // Hero paragraph with typewriter effect
+      const heroP = document.querySelector('.hero-text p');
+      const text = heroP.textContent;
+      heroP.textContent = '';
+
+      gsap.from(heroP, {
+        opacity: 0,
+        duration: 1,
+        delay: 1.2,
+        onComplete: () => {
+          let i = 0;
+          const typeWriter = () => {
+            if (i < text.length) {
+              heroP.textContent += text.charAt(i);
+              i++;
+              setTimeout(typeWriter, 30);
+            }
+          };
+          typeWriter();
+        }
+      });
+
+      // Hero image with spectacular entrance
+      gsap.fromTo(".hero-img",
+        {
+          opacity: 0,
+          scale: 0.3,
+          rotationY: 180,
+          z: -1000
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          rotationY: -15,
+          z: 0,
+          duration: 2.5,
+          delay: 1.5,
+          ease: "back.out(1.7)",
+          onComplete: () => {
+            // Add continuous floating effect
+            gsap.to(".hero-img", {
+              y: 15,
+              rotation: 2,
+              duration: 4,
+              repeat: -1,
+              yoyo: true,
+              ease: "sine.inOut"
+            });
+          }
+        }
+      );
+
+      // Button animations with stagger
+      gsap.utils.toArray('.btn').forEach((btn, i) => {
+        gsap.fromTo(btn,
+          {
+            y: 100,
+            opacity: 0,
+            scale: 0.8
+          },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 1.5,
+            delay: 2.2 + (i * 0.2),
+            ease: "elastic.out(1, 0.8)"
+          }
+        );
+      });
+
+      // Scroll indicator with delayed entrance
+      gsap.to(".scroll-down", {
+        opacity: 1,
+        duration: 1.5,
+        delay: 3,
+        ease: "power2.out"
+      });
+
+      // Add click handlers
+      document.querySelector('.scroll-down').addEventListener('click', () => {
+        gsap.to(window, {
+          scrollTo: {y: window.innerHeight, offsetY: 0},
+          duration: 2,
+          ease: "power2.inOut"
+        });
+      });
+    }
+
+    // Enhanced scroll effects
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      const navbar = document.querySelector('.navbar');
+
+      if (scrolled > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+
+      // Parallax effects
+      const heroText = document.querySelector('.hero-text');
+      const heroImg = document.querySelector('.hero-img');
+      const scrollDown = document.querySelector('.scroll-down');
+
+      if (heroText && heroImg && scrollDown) {
+        gsap.to(heroText, {
+          y: scrolled * 0.3,
+          opacity: 1 - scrolled * 0.002,
+          duration: 0.3
+        });
+
+        gsap.to(heroImg, {
+          y: scrolled * 0.2,
+          rotationY: -15 + scrolled * 0.05,
+          duration: 0.3
+        });
+
+        gsap.to(scrollDown, {
+          opacity: Math.max(0, 1 - scrolled * 0.01),
+          duration: 0.3
+        });
+      }
+    });
+
+    // Advanced hover effects for hero image
+    const heroImgContainer = document.querySelector('.hero-img-container');
+    if (heroImgContainer) {
+      let mouseX = 0, mouseY = 0;
+      let targetX = 0, targetY = 0;
+
+      heroImgContainer.addEventListener('mousemove', (e) => {
+        const rect = heroImgContainer.getBoundingClientRect();
+        mouseX = (e.clientX - rect.left - rect.width / 2) / 15;
+        mouseY = (e.clientY - rect.top - rect.height / 2) / 15;
+      });
+
+      heroImgContainer.addEventListener('mouseleave', () => {
+        mouseX = 0;
+        mouseY = 0;
+      });
+
+      // Smooth animation loop
+      function animate() {
+        targetX += (mouseX - targetX) * 0.1;
+        targetY += (mouseY - targetY) * 0.1;
+
+        gsap.set(heroImgContainer, {
+          rotationY: -15 + targetX,
+          rotationX: 5 + targetY,
+          transformPerspective: 1000
+        });
+
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    // Add magical sparkle effect on click
+    document.addEventListener('click', (e) => {
+      createSparkle(e.clientX, e.clientY);
+    });
+
+    function createSparkle(x, y) {
+      const sparkle = document.createElement('div');
+      sparkle.style.position = 'fixed';
+      sparkle.style.left = x + 'px';
+      sparkle.style.top = y + 'px';
+      sparkle.style.width = '10px';
+      sparkle.style.height = '10px';
+      sparkle.style.background = 'radial-gradient(circle, #d4af37, transparent)';
+      sparkle.style.borderRadius = '50%';
+      sparkle.style.pointerEvents = 'none';
+      sparkle.style.zIndex = '9999';
+      document.body.appendChild(sparkle);
+
+      gsap.fromTo(sparkle,
+        {
+          scale: 0,
+          rotation: 0
+        },
+        {
+          scale: 2,
+          rotation: 360,
+          duration: 0.6,
+          ease: "power2.out",
+          onComplete: () => {
+            gsap.to(sparkle, {
+              scale: 0,
+              opacity: 0,
+              duration: 0.3,
+              onComplete: () => sparkle.remove()
+            });
+          }
+        }
+      );
+    }
+
+    // Initialize on DOM load
+    document.addEventListener('DOMContentLoaded', () => {
+      // Add smooth reveal animations for all hover effects
+      gsap.utils.toArray('.hover-effect').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          gsap.to(el, {
+            scale: 1.05,
+            duration: 0.4,
+            ease: "power2.out"
+          });
+        });
+
+        el.addEventListener('mouseleave', () => {
+          gsap.to(el, {
+            scale: 1,
+            duration: 0.4,
+            ease: "power2.out"
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
