@@ -1,194 +1,188 @@
 // Enhanced Henna by Fuzz - Script.js File
 
-// Custom Cursor Animation
-const cursor = document.querySelector('.cursor');
-const cursorFollower = document.querySelector('.cursor-follower');
-let mouseX = 0, mouseY = 0;
-let followerX = 0, followerY = 0;
-
-document.addEventListener('mousemove', (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-  cursor.style.left = mouseX + 'px';
-  cursor.style.top = mouseY + 'px';
-});
-
-// Smooth cursor follower
-function updateFollower() {
-  followerX += (mouseX - followerX) * 0.1;
-  followerY += (mouseY - followerY) * 0.1;
-  cursorFollower.style.left = followerX + 'px';
-  cursorFollower.style.top = followerY + 'px';
-  requestAnimationFrame(updateFollower);
-}
-updateFollower();
-
-// Cursor hover effects
-document.querySelectorAll('a, button, .hover-effect').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    cursor.classList.add('expand');
-    cursorFollower.style.transform = 'scale(1.5)';
-  });
-  el.addEventListener('mouseleave', () => {
-    cursor.classList.remove('expand');
-    cursorFollower.style.transform = 'scale(1)';
-  });
-});
-
-// Enhanced Loading Animation with Performance Optimizations
+// Immediate loading start
 window.addEventListener('load', function() {
-  const loader = document.getElementById('loader');
-  const progress = document.getElementById('progress');
-  const progressPercentage = document.getElementById('progress-percentage');
+  // Ensure loading completes after all resources are loaded
+  setTimeout(() => {
+    if (window.loadingComplete) return;
+    window.loadingComplete = true;
 
-  // Create enhanced particle systems
-  createLoaderParticles();
-  createProgressParticles();
-
-  // Optimized progress animation with RAF
-  let width = 0;
-  let currentPercentage = 0;
-  const loadingSteps = [12, 28, 45, 67, 82, 95, 100];
-  let stepIndex = 0;
-  let animationId;
-
-  const updateProgress = () => {
-    if (stepIndex < loadingSteps.length) {
-      const targetWidth = loadingSteps[stepIndex];
-      const targetPercentage = Math.round(targetWidth);
-
-      const animateStep = () => {
-        const widthIncrement = (targetWidth - width) * 0.08;
-        const percentageIncrement = (targetPercentage - currentPercentage) * 0.08;
-
-        width += widthIncrement;
-        currentPercentage += percentageIncrement;
-
-        progress.style.width = `${width}%`;
-        progressPercentage.textContent = `${Math.round(currentPercentage)}%`;
-
-        if (Math.abs(width - targetWidth) > 0.5) {
-          animationId = requestAnimationFrame(animateStep);
-        } else {
-          width = targetWidth;
-          currentPercentage = targetPercentage;
-          progress.style.width = `${width}%`;
-          progressPercentage.textContent = `${currentPercentage}%`;
-          stepIndex++;
-
-          // Add slight delay between steps for realism
-          setTimeout(updateProgress, stepIndex === loadingSteps.length ? 800 :
-                    Math.random() * 400 + 200);
-        }
-      };
-      animateStep();
-    } else {
-      // Enhanced exit animation sequence
-      setTimeout(() => {
-        // First, animate rings with stagger
-        gsap.to(".ring", {
-          scale: 0,
-          rotation: 720,
-          duration: 1.2,
-          stagger: 0.1,
-          ease: "back.in(2)"
-        });
-
-        // Animate glow effect
-        gsap.to(".loader-glow", {
-          scale: 3,
-          opacity: 0,
-          duration: 1.5,
-          delay: 0.2,
-          ease: "power2.out"
-        });
-
-        // Animate particles
-        gsap.to(".loader-particle", {
-          scale: 0,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.02,
-          delay: 0.3,
-          ease: "power2.in"
-        });
-
-        // Animate content with sophisticated effect
-        gsap.to(".loader-content", {
-          y: -150,
-          opacity: 0,
-          scale: 0.8,
-          rotationX: 90,
-          duration: 1.5,
-          delay: 0.5,
-          ease: "power3.in"
-        });
-
-        // Final loader disappear with luxury effect
-        gsap.to(loader, {
-          clipPath: 'circle(0% at 50% 50%)',
-          duration: 2,
-          delay: 1.2,
-          ease: "power4.inOut",
-          onComplete: () => {
-            loader.style.display = 'none';
-            document.body.style.overflow = 'auto';
-            cancelAnimationFrame(animationId);
-            initMainAnimations();
-          }
-        });
-      }, 500);
-    }
-  };
-
-  updateProgress();
+    const finishEvent = new CustomEvent('finishLoading');
+    document.dispatchEvent(finishEvent);
+  }, 500);
 });
 
-// Enhanced Loader Particle System
-function createLoaderParticles() {
-  const container = document.getElementById('loader-particles');
+// Modern Enhanced Loading Animation
+document.addEventListener('DOMContentLoaded', function() {
+  const loader = document.getElementById('loader');
+  const progressFill = document.getElementById('progress-fill');
+  const progressPercentage = document.getElementById('progress-percentage');
+  const loadingStatus = document.getElementById('loading-status');
+
+  // Create elegant particle system
+  createElegantParticles();
+
+  // Loading messages for better UX
+  const loadingMessages = [
+    "Preparing your experience...",
+    "Loading beautiful designs...",
+    "Setting up the magic...",
+    "Almost ready...",
+    "Welcome to Henna by Fuzz!"
+  ];
+
+  let currentProgress = 0;
+  let messageIndex = 0;
+
+  // Smooth progress animation
+  function updateProgress() {
+    const targetProgress = Math.min(currentProgress + Math.random() * 15 + 5, 100);
+
+    // Animate progress bar
+    gsap.to(progressFill, {
+      width: `${targetProgress}%`,
+      duration: 0.8,
+      ease: "power2.out"
+    });
+
+    // Update percentage with smooth counting
+    gsap.to({ value: currentProgress }, {
+      value: targetProgress,
+      duration: 0.8,
+      ease: "power2.out",
+      onUpdate: function() {
+        progressPercentage.textContent = Math.round(this.targets()[0].value);
+      }
+    });
+
+    currentProgress = targetProgress;
+
+    // Update loading message
+    if (messageIndex < loadingMessages.length - 1 && currentProgress > (messageIndex + 1) * 20) {
+      messageIndex++;
+      gsap.to(loadingStatus, {
+        opacity: 0,
+        duration: 0.3,
+        onComplete: () => {
+          loadingStatus.textContent = loadingMessages[messageIndex];
+          gsap.to(loadingStatus, {
+            opacity: 0.8,
+            duration: 0.3
+          });
+        }
+      });
+    }
+
+    // Continue loading or finish
+    if (currentProgress < 100) {
+      setTimeout(updateProgress, Math.random() * 600 + 400);
+    } else {
+      window.loadingComplete = true;
+      setTimeout(finishLoading, 800);
+    }
+  }
+
+  // Start loading after a brief delay
+  setTimeout(updateProgress, 1000);
+
+  // Listen for forced finish event
+  document.addEventListener('finishLoading', finishLoading);
+
+  // Elegant exit animation
+  function finishLoading() {
+    if (window.loadingFinished) return;
+    window.loadingFinished = true;
+    // Animate logo letters out
+    gsap.to(".logo-letter", {
+      y: -50,
+      opacity: 0,
+      scale: 0.8,
+      duration: 0.6,
+      stagger: 0.1,
+      ease: "power2.in"
+    });
+
+    // Animate subtitle out
+    gsap.to(".logo-subtitle", {
+      y: -30,
+      opacity: 0,
+      duration: 0.6,
+      delay: 0.3,
+      ease: "power2.in"
+    });
+
+    // Animate progress container out
+    gsap.to(".progress-container", {
+      y: 30,
+      opacity: 0,
+      duration: 0.6,
+      delay: 0.4,
+      ease: "power2.in"
+    });
+
+    // Animate loading status out
+    gsap.to(".loading-status", {
+      y: 20,
+      opacity: 0,
+      duration: 0.6,
+      delay: 0.5,
+      ease: "power2.in"
+    });
+
+    // Animate particles out
+    gsap.to(".elegant-particle", {
+      scale: 0,
+      opacity: 0,
+      duration: 0.8,
+      delay: 0.6,
+      stagger: 0.02,
+      ease: "power2.in"
+    });
+
+    // Final loader exit with modern effect
+    gsap.to(loader, {
+      opacity: 0,
+      scale: 1.1,
+      duration: 1.2,
+      delay: 1,
+      ease: "power2.inOut",
+      onComplete: () => {
+        loader.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        initMainAnimations();
+      }
+    });
+  }
+});
+
+// Elegant Particle System for Loader
+function createElegantParticles() {
+  const container = document.getElementById('elegant-particles');
   if (!container) return;
 
-  const particleCount = 40;
+  const particleCount = 25;
 
   for (let i = 0; i < particleCount; i++) {
     const particle = document.createElement('div');
-    particle.classList.add('loader-particle');
+    particle.classList.add('elegant-particle');
 
-    const size = Math.random() * 6 + 2;
+    // Varied particle properties for natural look
+    const size = Math.random() * 4 + 2;
     const posX = Math.random() * 100;
-    const delay = Math.random() * 6;
-    const duration = Math.random() * 4 + 6;
+    const delay = Math.random() * 8;
+    const duration = Math.random() * 8 + 10;
+    const opacity = Math.random() * 0.4 + 0.2;
 
     particle.style.width = `${size}px`;
     particle.style.height = `${size}px`;
     particle.style.left = `${posX}%`;
     particle.style.animationDelay = `${delay}s`;
     particle.style.animationDuration = `${duration}s`;
+    particle.style.opacity = opacity;
 
-    container.appendChild(particle);
-  }
-}
-
-// Progress Bar Particle System
-function createProgressParticles() {
-  const container = document.getElementById('progress-particles');
-  if (!container) return;
-
-  const particleCount = 15;
-
-  for (let i = 0; i < particleCount; i++) {
-    const particle = document.createElement('div');
-    particle.classList.add('progress-particle');
-
-    const size = Math.random() * 4 + 2;
-    const posX = Math.random() * 100;
-    const delay = Math.random() * 2;
-
-    particle.style.width = `${size}px`;
-    particle.style.height = `${size}px`;
-    particle.style.left = `${posX}%`;
-    particle.style.animationDelay = `${delay}s`;
+    // Add some color variation
+    const colors = ['var(--gold)', 'var(--peach)', 'var(--rose)'];
+    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
 
     container.appendChild(particle);
   }
