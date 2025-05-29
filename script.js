@@ -71,7 +71,6 @@ applyMobileOptimizations();
 window.addEventListener('resize', debounce(applyMobileOptimizations, 250));
 
 // WORLD'S MOST FLAWLESS HENNA LOADING EXPERIENCE
-// Absolutely perfect coverage with zero bleed-through
 
 // Immediate body protection
 document.documentElement.style.overflow = 'hidden';
@@ -259,6 +258,7 @@ function restorePageToNormalState() {
     element.style.opacity = '';
   });
 }
+
 
 // Create final henna burst effect
 function createHennaBurstEffect() {
@@ -1315,52 +1315,57 @@ function initializeMainPage() {
     }
 
     // ===== PORTFOLIO FUNCTIONALITY =====
-    function initializePortfolio() {
-      // Portfolio filtering
-      const filterBtns = document.querySelectorAll('.filter-btn');
-      const portfolioItems = document.querySelectorAll('.portfolio-item');
+// Initialize Masonry layout
+const grid = document.querySelector('#portfolio-grid');
+const masonry = new Masonry(grid, {
+  itemSelector: '.portfolio-item',
+  columnWidth: '.portfolio-item',
+  percentPosition: true
+});
 
-      filterBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-          const filter = this.getAttribute('data-filter');
+// GSAP ScrollTrigger for portfolio items
+gsap.utils.toArray('.portfolio-item').forEach((item) => {
+  gsap.from(item, {
+    opacity: 0,
+    y: 50,
+    duration: 1,
+    scrollTrigger: {
+      trigger: item,
+      start: 'top bottom-=100',
+      toggleActions: 'play none none reverse'
+    }
+  });
+});
 
-          // Update active button
-          filterBtns.forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
+// Portfolio filtering
+const filterButtons = document.querySelectorAll('[data-filter]');
+filterButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const filter = button.getAttribute('data-filter');
+    const items = document.querySelectorAll('.portfolio-item');
+    
+    items.forEach(item => {
+      if (filter === 'all' || item.getAttribute('data-category') === filter) {
+        gsap.to(item, { opacity: 1, scale: 1, duration: 0.3 });
+      } else {
+        gsap.to(item, { opacity: 0, scale: 0.8, duration: 0.3 });
+      }
+    });
+    
+    masonry.layout();
+  });
+});
 
-          // Filter items
-          portfolioItems.forEach(item => {
-            const category = item.getAttribute('data-category');
-
-            if (filter === 'all' || category === filter || category === 'all') {
-              item.style.display = 'block';
-              item.style.opacity = '0';
-              item.style.transform = 'translateY(20px)';
-
-              setTimeout(() => {
-                item.style.transition = 'all 0.4s ease';
-                item.style.opacity = '1';
-                item.style.transform = 'translateY(0)';
-              }, 100);
-            } else {
-              item.style.transition = 'all 0.3s ease';
-              item.style.opacity = '0';
-              item.style.transform = 'translateY(-20px)';
-
-              setTimeout(() => {
-                item.style.display = 'none';
-              }, 300);
-            }
-          });
-        });
-      });
+// Lazy loading for images
+const lazyLoadInstance = new LazyLoad({
+  elements_selector: '.portfolio-item img'
+});
 
       // Before/After comparison slider
       initializeComparisonSlider();
 
       // Create contact particles
       createContactParticles();
-    }
 
     function initializeComparisonSlider() {
       const slider = document.querySelector('.comparison-slider');
@@ -1833,3 +1838,82 @@ function initializeMainPage() {
 
     // Initialize lazy loading
     initializeLazyLoading();
+
+// ===== ENHANCED PORTFOLIO SECTION SCRIPT =====
+document.addEventListener('DOMContentLoaded', () => {
+    const portfolioGrid = document.getElementById('portfolio-grid');
+    const filterButtonsContainer = document.getElementById('portfolio-filters');
+
+    if (portfolioGrid && filterButtonsContainer) {
+        const portfolioItems = Array.from(portfolioGrid.querySelectorAll('.portfolio-item'));
+        const filterButtons = Array.from(filterButtonsContainer.querySelectorAll('.filter-btn'));
+
+        // 1. GSAP Animations for Portfolio Items
+        gsap.registerPlugin(ScrollTrigger);
+
+        portfolioItems.forEach((item) => {
+            gsap.fromTo(item,
+                { opacity: 0, y: 50 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 85%', // Adjust as needed
+                        toggleActions: 'play none none none',
+                        // markers: true, // Uncomment for debugging
+                    }
+                }
+            );
+        });
+
+        // 2. Portfolio Filtering Logic
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filterValue = button.getAttribute('data-filter');
+
+                // Update active button state
+                filterButtons.forEach(btn => btn.classList.remove('active', 'bg-[#d4af37]', 'text-white'));
+                button.classList.add('active', 'bg-[#d4af37]', 'text-white'); // Style active button
+
+                portfolioItems.forEach(item => {
+                    const itemCategory = item.getAttribute('data-category');
+                    const shouldShow = filterValue === 'all' || itemCategory === filterValue;
+
+                    // Animate filtering with GSAP
+                    if (shouldShow) {
+                        gsap.to(item, {
+                            opacity: 1,
+                            scale: 1,
+                            duration: 0.5,
+                            display: 'block', // Or 'inline-block', 'flex' depending on item's display type
+                            onComplete: () => item.style.height = 'auto' // Ensure height is recalculated
+                        });
+                    } else {
+                        gsap.to(item, {
+                            opacity: 0,
+                            scale: 0.9,
+                            duration: 0.4,
+                            display: 'none',
+                            onComplete: () => item.style.height = '0px' // Collapse item
+                        });
+                    }
+                });
+                
+                // Re-trigger ScrollTrigger to recalculate positions after filtering (important for masonry-like layouts)
+                ScrollTrigger.refresh();
+            });
+        });
+    }
+
+    // Lightbox functionality (basic example using a library like Lity or custom)
+    // This assumes you might add a library like Lity.js: &lt;script src="lity.min.js"&gt;&lt;/script&gt; and &lt;link rel="stylesheet" href="lity.min.css"&gt;
+    // Or you can implement your own. For now, the `data-lightbox` attributes are in the HTML.
+    // Example: if (typeof lity !== 'undefined') { /* Lity is loaded */ }
+});
+
+// Note: For a true Masonry layout, a library like Masonry.js or Isotope.js might be needed
+// if Tailwind's column layout isn't sufficient for all dynamic content heights.
+// ScrollTrigger.refresh() helps, but complex dynamic height changes might need more.
